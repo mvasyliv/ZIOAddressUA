@@ -4,9 +4,9 @@ import zio.schema.DeriveSchema
 
 final case class Area
   (
-    id: Int,
-    countryId: Int,
-    name: String,
+    id:          Int,
+    countryId:   Int,
+    name:        String,
     description: Option[String] = None
   )
 

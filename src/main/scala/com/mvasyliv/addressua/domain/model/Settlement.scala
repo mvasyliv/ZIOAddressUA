@@ -4,11 +4,11 @@ import zio.schema.DeriveSchema
 
 final case class Settlement
   (
-    id: Int,
-    regionId: Int,
+    id:               Int,
+    regionId:         Int,
     typeSettlementId: Int,
-    name: String,
-    description: Option[String] = None
+    name:             String,
+    description:      Option[String] = None
   )
 
 object Settlement {

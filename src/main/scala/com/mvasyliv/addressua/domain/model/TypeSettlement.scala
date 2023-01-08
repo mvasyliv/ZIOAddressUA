@@ -4,7 +4,7 @@ import zio.schema.DeriveSchema
 
 final case class TypeSettlement
   (
-    id: Int,
+    id:   Int,
     name: String
   )
 object TypeSettlement {

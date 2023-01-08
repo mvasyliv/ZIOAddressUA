@@ -4,9 +4,9 @@ import zio.schema.DeriveSchema
 
 final case class Country
   (
-    id: Int,
-    name: String,
-    shortName: String,
+    id:          Int,
+    name:        String,
+    shortName:   String,
     description: Option[String]
   )
 object Country {
