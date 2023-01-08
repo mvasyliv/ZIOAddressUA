@@ -10,5 +10,5 @@ final case class Area(
 )
 
 object Area {
-  implicit val schemaArea: Schema[Area] = DeriveSchema.gen[Area]
+  implicit val schemaArea = DeriveSchema.gen[Area]
 }

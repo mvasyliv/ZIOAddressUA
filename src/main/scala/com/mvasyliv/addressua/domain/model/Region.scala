@@ -9,5 +9,5 @@ final case class Region(
     description: Option[String] = None
 )
 object Region {
-  implicit val schemaRegion: Schema[Region] = DeriveSchema.gen[Region]
+  implicit val schemaRegion = DeriveSchema.gen[Region]
 }
