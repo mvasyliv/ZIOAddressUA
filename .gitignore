@@ -1,0 +1,9 @@
+target/
+project/project/
+project/target/
+.bsp/
+.idea/
+.idea/codeStyles/
+.idea/libraries/
+.idea/modules/
+.idea/sonarlint/

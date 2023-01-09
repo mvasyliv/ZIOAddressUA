@@ -1,4 +1,4 @@
-package com.mvasyliv.addressua.repo
+package com.mvasyliv.addressua.repo.tabledescription
 
 import com.mvasyliv.addressua.domain.model.Country
 import zio.sql.postgresql.PostgresJdbcModule
