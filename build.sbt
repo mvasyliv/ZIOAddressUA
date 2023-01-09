@@ -31,6 +31,8 @@ lazy val root = (project in file("."))
       "dev.zio"           %% "zio-schema-derivation"           % zioSchemaVersion,
       // SQL
       "dev.zio"           %% "zio-sql-postgres"                % zioSqlVersion,
+      "org.postgresql"     % "postgresql"                      % "42.0.0",
+      "org.flywaydb"       % "flyway-core"                     % "4.1.2",
       // HTTP
       "io.d11"            %% "zhttp"                           % zioHttpVersion,
       "io.d11"            %% "zhttp-test"                      % zioHttpVersion             % Test,
