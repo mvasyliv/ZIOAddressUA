@@ -1,14 +1,9 @@
 package com.mvasyliv.addressua.domain.model
+import java.util.UUID
 
-import zio.schema.DeriveSchema
-
-final case class Country
-  (
-    id:          Int,
-    name:        String,
-    shortName:   String,
-    description: Option[String]
-  )
-object Country {
-  implicit val schemaCountry = DeriveSchema.gen[Country]
-}
+final case class Country(
+    id: UUID,
+    fullName: String,
+    shortName: String,
+    descriptionShort: Option[String]
+)
