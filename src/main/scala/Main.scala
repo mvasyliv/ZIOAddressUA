@@ -21,6 +21,8 @@ object Main extends ZIOAppDefault {
           ),
         Server.live,
         CountryRepositoryImpl.live,
+        AreaRepositoryImpl.live,
+        RegionRepositoryImpl.live,
         DbConfig.layer,
         ConnectionPool.live,
         DbConfig.connectionPoolConfig
