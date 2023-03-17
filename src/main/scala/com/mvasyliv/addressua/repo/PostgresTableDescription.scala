@@ -2,7 +2,7 @@ package com.mvasyliv.addressua.repo
 import zio._
 import zio.stream._
 import com.mvasyliv.addressua.domain.AppError.RepositoryError
-import com.mvasyliv.addressua.domain.model.Country
+import com.mvasyliv.addressua.domain.model.{Country, PostCode, Area, Region}
 import zio.schema.DeriveSchema
 import zio.sql.postgresql.PostgresJdbcModule
 
@@ -11,6 +11,18 @@ trait PostgresTableDescription extends PostgresJdbcModule {
   implicit val countrySchema = DeriveSchema.gen[Country]
   val countries = defineTableSmart[Country]
   val (countryId, fullName, shortName, descriptionShort) = countries.columns
+
+  implicit val postCodeSchema = DeriveSchema.gen[PostCode]
+  val postcodes = defineTableSmart[PostCode]
+  val (postIndex) = postcodes.columns
+
+  implicit val areaSchema = DeriveSchema.gen[Area]
+  val areas = defineTableSmart[Area]
+  val (areaId, areaCountryId, areaName, areaDescription) = areas.columns
+
+  implicit val regionSchema = DeriveSchema.gen[Region]
+  val regions = defineTableSmart[Region]
+  val (regionId, regionAreaId, regionName, regionDescription) = regions.columns
 
   implicit class ZStreamSqlExt[T](zstream: ZStream[SqlDriver, Exception, T]) {
     def provideDriver(

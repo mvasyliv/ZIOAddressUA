@@ -1,14 +1,17 @@
 package com.mvasyliv.addressua.domain.model
 
-import zio.schema.DeriveSchema
+import zio.json._
+import java.util.UUID
 
-final case class Region
-  (
-    id:          Int,
-    areaId:      Int,
-    name:        String,
-    description: Option[String] = None
-  )
+final case class Region(
+    id: UUID,
+    areaId: UUID,
+    fullName: String,
+    descriptionShort: Option[String] = None
+)
 object Region {
-  implicit val schemaRegion = DeriveSchema.gen[Region]
+  implicit val regionEncoder: JsonEncoder[Region] =
+    DeriveJsonEncoder.gen[Region]
+  implicit val regionDecoder: JsonDecoder[Region] =
+    DeriveJsonDecoder.gen[Region]
 }

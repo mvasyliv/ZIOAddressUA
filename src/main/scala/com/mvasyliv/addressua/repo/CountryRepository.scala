@@ -10,9 +10,9 @@ trait CountryRepository {
 
   def findById(id: UUID): ZIO[Any, RepositoryError, Country]
 
-  def add(customer: Country): ZIO[Any, RepositoryError, Unit]
+  def add(country: Country): ZIO[Any, RepositoryError, Unit]
 
-  def add(customer: List[Country]): ZIO[Any, RepositoryError, Int]
+  def add(country: List[Country]): ZIO[Any, RepositoryError, Int]
 }
 
 object CountryRepository {
@@ -22,11 +22,11 @@ object CountryRepository {
   def findById(id: UUID): ZIO[CountryRepository, RepositoryError, Country] =
     ZIO.serviceWithZIO[CountryRepository](_.findById(id))
 
-  def add(customer: Country): ZIO[CountryRepository, RepositoryError, Unit] =
-    ZIO.serviceWithZIO[CountryRepository](_.add(customer))
+  def add(country: Country): ZIO[CountryRepository, RepositoryError, Unit] =
+    ZIO.serviceWithZIO[CountryRepository](_.add(country))
 
   def add(
-      customer: List[Country]
+      country: List[Country]
   ): ZIO[CountryRepository, RepositoryError, Int] =
-    ZIO.serviceWithZIO[CountryRepository](_.add(customer))
+    ZIO.serviceWithZIO[CountryRepository](_.add(country))
 }
