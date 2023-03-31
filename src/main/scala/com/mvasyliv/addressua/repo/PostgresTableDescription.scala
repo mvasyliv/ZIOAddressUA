@@ -2,7 +2,15 @@ package com.mvasyliv.addressua.repo
 import zio._
 import zio.stream._
 import com.mvasyliv.addressua.domain.AppError.RepositoryError
-import com.mvasyliv.addressua.domain.model.{Country, PostCode, Area, Region}
+import com.mvasyliv.addressua.domain.model.{
+  Country,
+  PostCode,
+  Area,
+  Region,
+  TypeSettlement,
+  TypeSettlementName,
+  Settlement
+}
 import zio.schema.DeriveSchema
 import zio.sql.postgresql.PostgresJdbcModule
 
@@ -21,8 +29,26 @@ trait PostgresTableDescription extends PostgresJdbcModule {
   val (areaId, areaCountryId, areaName, areaDescription) = areas.columns
 
   implicit val regionSchema = DeriveSchema.gen[Region]
-  val regions = defineTableSmart[Region]
+  val regions = defineTable[Region]("regions")
   val (regionId, regionAreaId, regionName, regionDescription) = regions.columns
+
+  implicit val typeSettlementSchema = DeriveSchema.gen[TypeSettlement]
+  val typeSettlements = defineTable[TypeSettlement]("type_settlement")
+  val (typeSettlementId, typeSettlementName) = typeSettlements.columns
+
+  implicit val typeSettlementNameSchema = DeriveSchema.gen[TypeSettlementName]
+  val typeSettlementsName = defineTable[TypeSettlementName]("type_settlement")
+  val (typeSettlementNameName) = typeSettlementsName.columns
+
+  implicit val settlementSchema = DeriveSchema.gen[Settlement]
+  val settlements = defineTable[Settlement]("settlement")
+  val (
+    settlementId,
+    settlementRegionId,
+    settlementTypeSettlementId,
+    settlementName,
+    settlementDescription
+  ) = settlements.columns
 
   implicit class ZStreamSqlExt[T](zstream: ZStream[SqlDriver, Exception, T]) {
     def provideDriver(
@@ -36,6 +62,24 @@ trait PostgresTableDescription extends PostgresJdbcModule {
     def findFirst(
         driver: ULayer[SqlDriver],
         id: java.util.UUID
+    ): ZIO[Any, RepositoryError, T] =
+      zstream.runHead.some
+        .tapError {
+          case None    => ZIO.unit
+          case Some(e) => ZIO.logError(e.getMessage())
+        }
+        .mapError {
+          case None =>
+            RepositoryError(
+              new RuntimeException(s"Order with id $id does not exists")
+            )
+          case Some(e) => RepositoryError(e.getCause())
+        }
+        .provide(driver)
+
+    def findFirst(
+        driver: ULayer[SqlDriver],
+        id: Int
     ): ZIO[Any, RepositoryError, T] =
       zstream.runHead.some
         .tapError {

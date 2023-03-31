@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZIOAddressUA.iml" filepath="$PROJECT_DIR$/.idea/modules/ZIOAddressUA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZIOAddressUA-build.iml" filepath="$PROJECT_DIR$/.idea/modules/ZIOAddressUA-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zio-address-ua.iml" filepath="$PROJECT_DIR$/.idea/modules/zio-address-ua.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zio-address-ua-build.iml" filepath="$PROJECT_DIR$/.idea/modules/zio-address-ua-build.iml" />
     </modules>
   </component>
 </project>

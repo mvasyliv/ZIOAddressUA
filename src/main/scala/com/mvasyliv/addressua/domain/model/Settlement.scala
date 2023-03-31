@@ -1,16 +1,18 @@
 package com.mvasyliv.addressua.domain.model
 
-import zio.schema.DeriveSchema
-
-final case class Settlement
-  (
-    id:               Int,
-    regionId:         Int,
+import java.util.UUID
+import zio.json._
+final case class Settlement(
+    id: UUID,
+    regionId: UUID,
     typeSettlementId: Int,
-    name:             String,
-    description:      Option[String] = None
-  )
+    fullName: String,
+    descriptionShort: Option[String] = None
+)
 
 object Settlement {
-  implicit val schemaSettlement = DeriveSchema.gen[Settlement]
+  implicit val settlementEncoder: JsonEncoder[Settlement] =
+    DeriveJsonEncoder.gen[Settlement]
+  implicit val settlementDecoder: JsonDecoder[Settlement] =
+    DeriveJsonDecoder.gen[Settlement]
 }

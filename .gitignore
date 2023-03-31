@@ -14,3 +14,4 @@ project/target/
 .bloop/root/scala-2.13
 .metals/
 .vscode/
+.postgres-data/

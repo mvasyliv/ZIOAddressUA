@@ -5,7 +5,10 @@ import com.mvasyliv.addressua.repo._
 import zio.http.model._
 object HttpRoutes {
   val app: HttpApp[
-    CountryRepository with AreaRepository with RegionRepository,
+    CountryRepository
+      with AreaRepository
+      with RegionRepository
+      with TypeSettlementRepository,
     Response
   ] =
     Http.collectZIO[Request] {
@@ -58,6 +61,24 @@ object HttpRoutes {
 
       case Method.GET -> !! / "regions" / zio.http.uuid(id) =>
         RegionRepository
+          .findById(id)
+          .either
+          .map {
+            case Right(region) => Response.json(region.toJson)
+            case Left(e)       => Response.text(e.getMessage())
+          }
+
+      case Method.GET -> !! / "typeSettlements" =>
+        TypeSettlementRepository
+          .findAll()
+          .runCollect
+          .either
+          .map {
+            case Right(r) => Response.json(r.toJson)
+            case Left(_)  => Response.status(Status.InternalServerError)
+          }
+      case Method.GET -> !! / "typeSettlements" / zio.http.int(id) =>
+        TypeSettlementRepository
           .findById(id)
           .either
           .map {
