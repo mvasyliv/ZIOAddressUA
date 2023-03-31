@@ -22,6 +22,14 @@ CREATE TABLE IF NOT EXISTS regions(
     description_short VARCHAR NULL
 );
 
+CREATE TABLE type_settlement (
+    id serial4 NOT NULL,
+    full_name VARCHAR NOT NULL,
+    CONSTRAINT typesettlement_full_name_key UNIQUE (full_name),
+    CONSTRAINT typesettlement_pkey PRIMARY KEY (id)
+);
+
+
 INSERT INTO countries(id, full_name, short_name, description_short)
 VALUES
     ('97f25d3f-1f81-43b1-8a9f-7133cf0a4121', 'Ukraine', 'UA', 'Ukraine'),
@@ -43,3 +51,5 @@ VALUES ('6ddca3ce-0efd-4a67-b43e-65c5862b0081', '97f25d3f-1f81-43b1-8a9f-7133cf0
 INSERT INTO regions(id, area_id, full_name, description_short)
 VALUES ('0f616b78-6850-4002-9b2e-cd538780062b', '6ddca3ce-0efd-4a67-b43e-65c5862b0081','Тернопільський', NULL),
 ('a0844283-5ad2-440b-91bd-c908e66b6a6a', '6ddca3ce-0efd-4a67-b43e-65c5862b0081', 'Чортківський', NULL );
+
+INSERT INTO type_settlement(full_name) VALUES('місто');
